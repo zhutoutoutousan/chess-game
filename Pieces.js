@@ -331,15 +331,31 @@ class Rook extends Piece {
     }
 
     generateMoves(board) {
+        const pushMoves = (x, y, moves) => {
+            moves.push(createVector(x, y));
+        }
         let moves = [];
-
-        let x = i;
-        let y = this.matrixPosition.y;
-        if(
-            x != this.matrixPosition.x &&
-            !this.attackingAllies(x, y, board)
-        )
-
-
+        for( let i = 0; i < 8; i++){
+            let x_h = i;
+            let y_h = this.matrixPosition.y;
+            let x_v = this.matrixPosition.x;
+            let y_v = i;
+            let notHself = x_h != this.matrixPosition.x;
+            let notVself = y_v != this.matrixPosition.y;
+            if(
+                notHself || notVself &&
+                !this.attackingAllies(x_h, y_h, board) &&
+                !this.attackingAllies(x_v, y_v, board) &&
+                !this.movingThroughPieces(x_h, y_h, board)&&
+                !this.movingThroughPieces(x_v, y_v, board)
+            ){
+                
+                let pushArray = notHself && notVself ? [[x_h, y_h], [x_v, y_v]] : 
+                                notHself ? [x_h, y_h] :
+                                notVself ? [x_h, y_h] : []
+                pushArray.forEach
+                moves.push(createVector())
+            }
+        }
     }
 }
