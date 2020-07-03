@@ -25,4 +25,5 @@ function mousePressed() {
 function initializeHtmlElements() {
     let paraBody = document.createElement('p');
     paraBody.innerText = 'Control Panel';
+    
 }
