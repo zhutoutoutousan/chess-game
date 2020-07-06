@@ -1,7 +1,19 @@
+/**
+ * @description The global variables
+ * 
+ * 
+ */
+// Game status
+let test;
+let moving = false;
+// Sketch
 let tileSize = 100;
+let images = [];
+// AI
 let calDepth = 3;
 let maxDepth = 6;
-let images = [];
+
+
 
 function setup() {
     createCanvas(800,800);

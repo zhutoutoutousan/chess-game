@@ -30,7 +30,6 @@ class Piece {
         let moves = this.generateMoves(currentBoard); 
         for(let i = 0; i < moves.length; i++) {
             boards[i] = currentBoard.clone();
-            
         }
     }
 
@@ -38,7 +37,7 @@ class Piece {
         if (x >= 0 && y >= 0 && x < 8 && y < 8){
             return true;
         }
-        return false
+        return false;
     }
 
     attackingAllies(x, y, board){
