@@ -1,6 +1,7 @@
 let tileSize = 100;
 let calDepth = 3;
 let maxDepth = 6;
+let images = [];
 
 function setup() {
     createCanvas(800,800);
@@ -8,10 +9,10 @@ function setup() {
 
     // load all chess pieces images
     for(let i = 1; i< 10; i++){
-        image.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_0${i}.png`));
+        images.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_0${i}.png`));
     }
     for(let i = 10; i< 13; i++){
-        image.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_${i}.png`));
+        images.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_${i}.png`));
     }
     test = new Board();
 }
@@ -46,7 +47,7 @@ function showGrid() {
 }
 
 function mousePressed() {
-    
+
 }
 
 function initializeHtmlElements() {
