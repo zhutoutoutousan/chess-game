@@ -376,5 +376,15 @@ class Knight extends Piece {
 
     generateMoves(board) {
         let moves = [];
+
+    }
+}
+
+class Queen extends Piece {
+    constructor(x, y, isWhite) {
+        super(x, y, isWhite);
+        this.letter = 'Q';
+        this.pic = isWhite ? images[1] : images[7];
+        this.value = 9;
     }
 }
