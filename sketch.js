@@ -31,6 +31,21 @@ function mousePressed() {
 }
 
 function showGrid() {
+    for(let i = 0; i < 8; i++) {
+        for(let j = 0; j < 8; j++) {
+            if ((i + j) % 2 == 1) {
+                fill(0);
+            }
+            else {
+                fill(240);
+            }
+        noStroke();
+        rect(i * tileSize, j * tileSize, tileSize, tileSize);
+        }
+    }
+}
+
+function mousePressed() {
     
 }
 
@@ -45,7 +60,7 @@ function initializeHtmlElements() {
                                 `Thinking ${++calDepth} moves ahead`;
     };
     
-    const minusDepth = _ =>{
+    const minusDepth = _ => {
         displayPara.innerText = calDepth < 2 ? 
                                 `Thinking ${calDepth} moves ahead` :
                                 `Thinking ${--calDepth} moves ahead`;

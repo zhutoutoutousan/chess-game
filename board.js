@@ -32,10 +32,24 @@ class Board {
         }
     }
 
+    show() {
+        for(let i = 0; i < this.whitePieces.length; i++) {
+            this.whitePieces[i].show();
+        }
+        for(let i = 0; i < this.blackPieces.length; i++) {
+            this.blackPieces[i].show();
+        }
+    }
+
     isPieceAt(x, y) {
 
     }
 
+    /**
+     * @description This 
+     * @param {number} x 
+     * @param {number} y 
+     */
     getPieceAt(x, y) {
         for(let i = 0; i < this.whitePieces.length; i++) {
             if(
@@ -61,4 +75,17 @@ class Board {
     isDone() {
         return this.whitePieces[0].taken || this.blackPieces[0].taken;
     }
+
+    isDead() {
+        return whiteAI && whitesMove ? this.whitePieces[0].taken :
+               blackAI && !whitesMove ? this.blackPieces[0].taken :
+               false;
+    }
+
+    hasWon() {
+        return whiteAI && whitesMove ? this.blackPieces[0].taken :
+               blackAI && !whitesMove ? this.whitePieces[0].taken :
+               false;
+    }
+
 }
