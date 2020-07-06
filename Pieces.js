@@ -375,6 +375,6 @@ class Knight extends Piece {
     }
 
     generateMoves(board) {
-        
+        let moves = [];
     }
 }
