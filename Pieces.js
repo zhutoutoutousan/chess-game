@@ -315,7 +315,7 @@ class Rook extends Piece {
         this.value = 5;
     }
     canMove(x, y, board) {
-        if (
+        return (
             this.withinBounds(x, y) &&
             !this.attackingAllies(x, y, board) &&
             (
@@ -323,38 +323,58 @@ class Rook extends Piece {
                 y == this.matrixPosition.y &&
                 !this.moveThroughPieces(x, y, board)
             )
-        ){
-            return true;
-        }            
-        return false;
+        ) ? true : false;
+    }
+
+
+    /**
+     * 
+     * @param {Object} board 
+     */
+    generateMoves(board) {
+        let moves = [];
+        const rookSweep = function(order) {
+            for(let i = 0; i < 8; i++){
+                let x = order == 0 ? i : this.matrixPosition.x;
+                let y = order == 0 ? this.matrixPosition.y : i;
+                if(
+                    x != this.matrixPosition.x &&
+                    !this.attackingAllies(x, y, board) &&
+                    !this.moveThroughPieces(x, y, board)
+                ) moves.push(createVector(x, y));
+        }
+        rookSweep(0);
+        rookSweep(1);
+
+        return moves;
+        }
+    }
+
+    clone() {
+        let clone = new Rook(this.matrixPosition.x, this.matrixPosition.y, this.white);
+        clone.taken = this.taken;
+        return clone;
+    }
+}
+
+class Knight extends Piece {
+    constructor(x, y, isWhite) {
+        super(x, y, isWhite);
+        this.letter = 'Kn';
+        this.pic = isWhite ? images[3] : images[9];
+        this.value = 3;
+    }
+
+    canMove(x, y, board) {
+        return !this.withinBounds(x, y) ? false :
+               this.attackingAllies(x, y, board) ? false :
+               (
+                   abs(x - this.matrixPosition.x) == 2 && abs(y - this.matrixPosition.y) == 1 ||
+                   abs(x - this.matrixPosition.x) == 1 && abs(y - this.matrixPosition.y) == 2
+               ) ? true : false;
     }
 
     generateMoves(board) {
-        const pushMoves = (x, y, moves) => {
-            moves.push(createVector(x, y));
-        }
-        let moves = [];
-        for( let i = 0; i < 8; i++){
-            let x_h = i;
-            let y_h = this.matrixPosition.y;
-            let x_v = this.matrixPosition.x;
-            let y_v = i;
-            let notHself = x_h != this.matrixPosition.x;
-            let notVself = y_v != this.matrixPosition.y;
-            if(
-                notHself || notVself &&
-                !this.attackingAllies(x_h, y_h, board) &&
-                !this.attackingAllies(x_v, y_v, board) &&
-                !this.movingThroughPieces(x_h, y_h, board)&&
-                !this.movingThroughPieces(x_v, y_v, board)
-            ){
-                
-                let pushArray = notHself && notVself ? [[x_h, y_h], [x_v, y_v]] : 
-                                notHself ? [x_h, y_h] :
-                                notVself ? [x_h, y_h] : []
-                pushArray.forEach
-                moves.push(createVector())
-            }
-        }
+        
     }
 }
