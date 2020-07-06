@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 class Board {
     constructor() {
         this.whitePieces = [];
@@ -6,6 +9,8 @@ class Board {
         this.setupPieces();
     }
 
+
+    // INITIALIZATION
     setupPieces() {
         this.whitePieces.push(new King(4, 7, true));
         this.whitePieces.push(new Queen(3, 7, true));
@@ -41,9 +46,11 @@ class Board {
         }
     }
 
-    isPieceAt(x, y) {
+    // INITIALIZATION
 
-    }
+
+
+    // METHODS
 
     /**
      * @description This 
@@ -72,6 +79,47 @@ class Board {
         return null;
     }
 
+    /**
+     * @requires
+     * @external
+     * @param {*} from 
+     * @param {*} to 
+     */
+    move(from, to) {
+        let pieceToMove = this.getPieceAt(from.x, from.y);
+        if(!pieceToMove) return;
+        pieceToMove.move(to.x, to.y, this);
+    }
+
+    // METHODS
+
+
+
+    // AI
+    generateNewBoardsWhitesTurn() {
+        let board = [];
+        for(let i = 0; i < this.whitePieces.length; i++) {
+            ;       
+        }
+    }
+
+    generateNewBoardsBlacksTurn() {
+        ;
+    }
+
+    setScore() {
+        ;
+    }
+    // AI
+
+
+
+    // STATE
+
+    isPieceAt(x, y) {
+        return this.getPieceAt(x,y) ? true : false;
+    }
+
     isDone() {
         return this.whitePieces[0].taken || this.blackPieces[0].taken;
     }
@@ -87,5 +135,7 @@ class Board {
                blackAI && !whitesMove ? this.whitePieces[0].taken :
                false;
     }
+
+    // STATE
 
 }

@@ -6,12 +6,16 @@
 // Game status
 let test;
 let moving = false;
+let whitesMove = true;
+let moveCounter = 10;
 // Sketch
 let tileSize = 100;
 let images = [];
 // AI
 let calDepth = 3;
 let maxDepth = 6;
+let whiteAI = false;
+let blackAI = true;
 
 
 
