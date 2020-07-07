@@ -79,6 +79,34 @@ class Piece {
         return false;
     }
 
+    diagSweep(order, board) {
+        let moves = [];
+        for(let i = 0; i < 8; i++){
+            let x = order == 0 ? i : this.matrixPosition.x + this.matrixPosition.y - i;
+            let y = order == 0 ? this.matrixPosition.y : i;
+            let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
+            if(
+                i != refPoint &&
+                !this.attackingAllies(x, y, board) &&
+                !this.moveThroughPieces(x, y, board)
+            ) moves.push(createVector(x, y));
+        }
+        return moves;
+    }
+
+    lineSweep(order, board) {
+        for(let i = 0; i < 8; i++){
+            let x = order == 0 ? i : this.matrixPosition.x;
+            let y = order == 0 ? this.matrixPosition.y : i;
+            let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
+            if(
+                i != refPoint &&
+                !this.attackingAllies(x, y, board) &&
+                !this.moveThroughPieces(x, y, board)
+            ) moves.push(createVector(x, y));
+        }
+    }
+
 }
 
 class Pawn extends Piece {
@@ -234,48 +262,8 @@ class Bishop extends Piece {
                this.moveThroughPieces(x, y, board) ? false : true;
     }
 
-
-    /*
-
-              WHITE'S PERSPECTIVE
-
-             A  B  C  D  E  F  G  H
-        8-0           |  
-        7-1           |           *
-        6-2  *        |        *
-        5-3     *     |     *
-        4-4        *  |  *
-        3-5  -  -  -  B
-        2-6        *     *
-        1-7     *           *
-
-        Let's say the coordinate of the bishop is (x, y). In the example above, x = 4, y = 5,
-        assuming that we're using the y coordinates during programming. Then the bishop's movement
-        has two patterns: Rising and falling.
-
-        From the illustration we know that for a certain position X, the corresponding position for 
-        Y of Bishop at (A,B) is 'B - A + X'
-
-
-
-    */
     generateMoves(board) {
-        let moves = [];
-        const diagSweep = function(order) {
-            for(let i = 0; i < 8; i++){
-                let x = order == 0 ? i : this.matrixPosition.x + this.matrixPosition.y - i;
-                let y = order == 0 ? this.matrixPosition.y : i;
-                let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
-                if(
-                    i != refPoint &&
-                    !this.attackingAllies(x, y, board) &&
-                    !this.moveThroughPieces(x, y, board)
-                ) moves.push(createVector(x, y));
-            }
-        }
-        diagSweep(0);
-        diagSweep(1);
-        return moves;
+        return [...this.diagSweep(0, board), ...this.diagSweep(1, board)];
     }
     clone() {
         let clone = new Bishop(this.matrixPosition.x, this.matrixPosition.y, this.white);
@@ -315,23 +303,7 @@ class Rook extends Piece {
      * @param {Object} board 
      */
     generateMoves(board) {
-        let moves = [];
-        const rookSweep = function(order) {
-            for(let i = 0; i < 8; i++){
-                let x = order == 0 ? i : this.matrixPosition.x;
-                let y = order == 0 ? this.matrixPosition.y : i;
-                let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
-                if(
-                    i != refPoint &&
-                    !this.attackingAllies(x, y, board) &&
-                    !this.moveThroughPieces(x, y, board)
-                ) moves.push(createVector(x, y));
-        }
-        rookSweep(0);
-        rookSweep(1);
-
-        return moves;
-        }
+        return [...this.lineSweep(0, board),...this.lineSweep(1, board)];
     }
 
     clone() {
@@ -406,15 +378,14 @@ class Queen extends Piece {
         return basicCondition && vhMovement || diagMovement;
     }
     generateMoves(board) {
-        const rookSweep = function(order) {
-            for(let i = 0; i < 8; i++){
-                let x = order == 0 ? i : this.matrixPosition.x;
-                let y = order == 0 ? this.matrixPosition.y : i;
-                if(
-                    x != this.matrixPosition.x &&
-                    !this.attackingAllies(x, y, board) &&
-                    !this.moveThroughPieces(x, y, board)
-                ) moves.push(createVector(x, y));
-        }
+        return [...this.lineSweep(0, board), 
+                ...this.lineSweep(1, board),
+                ...this.diagSweep(0, board), 
+                ...this.diagSweep(1, board)];
+    }
+    clone() {
+        let clone = new Queen(this.matrixPosition.x, this.matrixPosition.y, this.white);
+        clone.taken = this.taken;
+        return clone;
     }
 }
