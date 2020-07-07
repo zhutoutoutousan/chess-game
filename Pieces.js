@@ -376,7 +376,31 @@ class Knight extends Piece {
 
     generateMoves(board) {
         let moves = [];
+        let candidateMoves = [];
+        const moveSet = [[-1,2], [-2,1], [-1,-2], [-2,-1]];
+        const mirrorValue = (arr) => {
+            let mirrorSet = [];
+            arr.forEach((curerntValue) => {
+                mirrorSet.push([-curerntValue[0], curerntValue[1]]);
+            }); 
+            return [...arr,...mirrorSet];
+        }
+       candidateMoves = mirrorValue(moveSet);
+       candidateMoves.forEach((currentValue) => {
+           let x = currentValue[0] + this.matrixPosition.x;
+           let y = currentValue[1] + this.matrixPosition.y;
+           if(!this.attackingAllies(x, y, board) &&
+             this.withinBounds(x, y)){
+                moves.push(createVector(x, y));
+            }   
+        })
+        return moves;
+    }
 
+    clone() {
+        let clone = new Knight(this.matrixPosition.x, this.matrixPosition.y, this.white);
+        clone.taken = this.taken;
+        return clone;
     }
 }
 
@@ -386,5 +410,15 @@ class Queen extends Piece {
         this.letter = 'Q';
         this.pic = isWhite ? images[1] : images[7];
         this.value = 9;
+    }
+
+    canMove(x, y, board) {
+        const basicCondition = !this.withinBounds(x, y) ? false :
+                               this.attackingAllies(x, y, board) ? false : true;
+        const vhMovement = !(x == this.matrixPosition.x || y == this.matrixPosition.y) ? false :
+                           this.moveThroughPieces(x, y, board) ? false : true;
+        const diagMovement = !(abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y)) ? false :
+                             this.moveThroughPieces(x, y, board) ? false : true;
+        return basicCondition && vhMovement || diagMovement;
     }
 }
