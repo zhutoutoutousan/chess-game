@@ -87,49 +87,41 @@ class Pawn extends Piece {
         this.letter = "p";
         this.firstTurn = true;
         this.value = 1;
-        this.pic = isWhite ? images[5] : images[11]
+        this.pic = isWhite ? images[5] : images[11];
     }
 
     canMove(x, y, board) {
-        if(!this.withinBounds(x, y)) {
-            return false;
-        }
-        if(this.attackingAllies(x, y, board)){
-            return false;
-        }
+        const basicCondition = !this.withinBounds(x, y) &&
+                             this.attackingAllies(x, y, board);
 
-        // If it is attacking the opponent
-        let attacking = board.isPieceAt(x, y);
-        if(attacking) {
-            if (abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y)
-                && (
-                    (this.white && (y - this.matrixPosition.y) == -1)
-                    || (!this.white && (y - this.matrixPosition.y) == 1)
-                    )
-                ){
-                    this.firstTurn = false;
-                    return true;
-                }
-            return false;
-        }
-        if(x != this.matrixPosition.x) {
-            return false;
-        }
-        if ((this.white && y - this.matrixPosition.y == -1)
-             || (!this.white && y- this.matrixPosition.y == 1)){
-                 this.firstTurn = false;
-                 return true;
-             }
-        if (this.firstTurn && ((this.white && y - this.matrixPosition.y == -2)
-            || (!this.white && y - this.matrixPosition.y == 2))){
-            if (this.moveThroughPieces(x, y, board)) {
-                return false;
-            }
+        const canAttack = !board.isPieceAt(x, y) ? false : 
+                            (abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y) &&
+                                (
+                                    (this.white && (y - this.matrixPosition.y) == -1) ||
+                                    (!this.white && (y - this.matrixPosition.y) == 1)
+                                )
+                            ) ? true : false; 
 
-            this.firstTurn = false;
-            return true;
-        }
-        return false;
+        const canMarch = canAttack ? false : 
+                         x != this.matrixPosition.x ? false :
+                         (
+                             (
+                                 (this.white && y - this.matrixPosition.y == -1) || 
+                                 (!this.white && y- this.matrixPosition.y == 1)
+                             )
+                         ) ||
+                         (
+                             (
+                                 (this.firstTurn && ((this.white && y - this.matrixPosition.y == -2) ||
+                                 (!this.white && y - this.matrixPosition.y == 2)))
+                             ) &&
+                             !this.moveThroughPieces(x, y, board)
+                         ) ? true : false;
+
+        const canEnPassant = false; // TODO
+        this.firstTurn = canAttack || canMarch ? false : this.firstTurn;
+
+        return basicCondition && (canAttack || canMarch || canEnPassant);
     }
 
 
@@ -269,38 +261,29 @@ class Bishop extends Piece {
     */
     generateMoves(board) {
         let moves = [];
-        for (let i = 0; i < 8; i++) {
-            let x = i;
-            let y = this.matrixPosition.y - (this.matrixPosition.x - i);
-            if(
-                x != this.matrixPosition.x &&
-                this.withinBounds(x, y) &&
-                !this.attackingAllies(x, y, board) &&
-                !this.moveThroughPieces(x, y, board)
-            ){
-                moves.push(createVector(x, y));
+        const diagSweep = function(order) {
+            for(let i = 0; i < 8; i++){
+                let x = order == 0 ? i : this.matrixPosition.x + this.matrixPosition.y - i;
+                let y = order == 0 ? this.matrixPosition.y : i;
+                let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
+                if(
+                    i != refPoint &&
+                    !this.attackingAllies(x, y, board) &&
+                    !this.moveThroughPieces(x, y, board)
+                ) moves.push(createVector(x, y));
             }
         }
-
-        for (let i = 0; i < 8; i++) {
-            let x = this.matrixPosition.x + (this.matrixPosition.y - i);
-            let y = i;
-            if(
-                x != this.matrixPosition.x &&
-                this.withinBounds(x, y) &&
-                !this.attackingAllies(x, y, board) &&
-                !this.moveThroughPieces(x, y, board)
-            ){
-                moves.push(createVector(x, y));
-            }
-        }
+        diagSweep(0);
+        diagSweep(1);
+        return moves;
     }
     clone() {
         let clone = new Bishop(this.matrixPosition.x, this.matrixPosition.y, this.white);
         clone.taken = this.taken;
         return clone;
-    }
+      }
 }
+
 
 class Rook extends Piece {
     constructor(x, y, isWhite) {
@@ -337,8 +320,9 @@ class Rook extends Piece {
             for(let i = 0; i < 8; i++){
                 let x = order == 0 ? i : this.matrixPosition.x;
                 let y = order == 0 ? this.matrixPosition.y : i;
+                let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
                 if(
-                    x != this.matrixPosition.x &&
+                    i != refPoint &&
                     !this.attackingAllies(x, y, board) &&
                     !this.moveThroughPieces(x, y, board)
                 ) moves.push(createVector(x, y));
@@ -420,5 +404,17 @@ class Queen extends Piece {
         const diagMovement = !(abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y)) ? false :
                              this.moveThroughPieces(x, y, board) ? false : true;
         return basicCondition && vhMovement || diagMovement;
+    }
+    generateMoves(board) {
+        const rookSweep = function(order) {
+            for(let i = 0; i < 8; i++){
+                let x = order == 0 ? i : this.matrixPosition.x;
+                let y = order == 0 ? this.matrixPosition.y : i;
+                if(
+                    x != this.matrixPosition.x &&
+                    !this.attackingAllies(x, y, board) &&
+                    !this.moveThroughPieces(x, y, board)
+                ) moves.push(createVector(x, y));
+        }
     }
 }
