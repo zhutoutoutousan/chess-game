@@ -4,7 +4,7 @@
  * 
  */
 // Game status
-let test;
+let test;  // Board object
 let moving = false;
 let whitesMove = true;
 let moveCounter = 10;
@@ -39,12 +39,15 @@ function draw() {
     test.show();
 }
 
+
+/**
+ * 
+ */
 function mousePressed() {
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-    if(!test.isDone()) {
-        
-    }
+    movingPiece = !moving ? test.getPieceAt(x, y) : movingPiece;
+    if (!moving && movingPiece != null && moving)
 }
 
 function showGrid() {
