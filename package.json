@@ -1,0 +1,22 @@
+{
+  "name": "chess-game",
+  "version": "1.0.0",
+  "description": "Just a chess game for learning JavaScript",
+  "main": "sketch.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhutoutoutousan/chess-game.git"
+  },
+  "author": "Tian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhutoutoutousan/chess-game/issues"
+  },
+  "homepage": "https://github.com/zhutoutoutousan/chess-game#readme",
+  "devDependencies": {
+    "jest": "^26.4.2"
+  }
+}
