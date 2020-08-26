@@ -97,5 +97,4 @@ function initializeHtmlElements() {
     
     buttonPlus.addEventListener('click', addDepth);
     buttonMinus.addEventListener('click', minusDepth);
-
 }

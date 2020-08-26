@@ -106,7 +106,6 @@ class Piece {
             ) moves.push(createVector(x, y));
         }
     }
-
 }
 
 class Pawn extends Piece {
