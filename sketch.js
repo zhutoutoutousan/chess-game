@@ -1,16 +1,15 @@
-/**
- * @description The global variables
- * 
- * 
- */
-// Game status
+/** @global */
+
+ // Game status
 let test;  // Board object
 let moving = false; 
 let whitesMove = true;
 let moveCounter = 10;
+
 // Sketch
 let tileSize = 100;
 let images = [];
+
 // AI
 let calDepth = 3;
 let maxDepth = 6;
@@ -18,7 +17,11 @@ let whiteAI = false;
 let blackAI = true;
 
 
-
+/**
+ * @param {undefined}
+ * @return {undefined}
+ * @description 
+ */
 function setup() {
     createCanvas(800,800);
     initializeHtmlElements();
@@ -33,6 +36,9 @@ function setup() {
     test = new Board();
 }
 
+/**
+ * @description
+ */
 function draw() {
     background(100);
     showGrid();
@@ -41,15 +47,20 @@ function draw() {
 
 
 /**
- * 
+ * @description
  */
 function mousePressed() {
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
     movingPiece = !moving ? test.getPieceAt(x, y) : movingPiece;
-    if (!moving && movingPiece != null && moving)
+    if (!moving && movingPiece != null && moving) {
+        
+    }
 }
 
+/**
+ * @description
+ */
 function showGrid() {
     for(let i = 0; i < 8; i++) {
         for(let j = 0; j < 8; j++) {
@@ -63,10 +74,6 @@ function showGrid() {
         rect(i * tileSize, j * tileSize, tileSize, tileSize);
         }
     }
-}
-
-function mousePressed() {
-
 }
 
 function initializeHtmlElements() {

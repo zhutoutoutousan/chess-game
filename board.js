@@ -56,6 +56,7 @@ class Board {
      * @description This 
      * @param {number} x 
      * @param {number} y 
+     * @returns {Object|null} The black/white Piece object that is on the coordinate when mouse pressed, if none, return null
      */
     getPieceAt(x, y) {
         for(let i = 0; i < this.whitePieces.length; i++) {
