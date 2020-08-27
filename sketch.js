@@ -5,7 +5,7 @@
  */
 // Game status
 let test;  // Board object
-let moving = false;
+let moving = false; 
 let whitesMove = true;
 let moveCounter = 10;
 // Sketch

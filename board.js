@@ -91,6 +91,13 @@ class Board {
         pieceToMove.move(to.x, to.y, this);
     }
 
+    clone() {
+        let clone = new Board();
+        for (let i = 0; i < this.whitePieces.length; i++) {
+            clone.whitePieces
+        }
+    }
+
     // METHODS
 
 
@@ -118,7 +125,7 @@ class Board {
             }
         }
         for (let i = 0; i < this.blackPieces.length; i++) {
-            
+            this.score += !this.blackPieces[i].taken ? this.blackPieces[i].value : '';
         }
     }
     // AI
