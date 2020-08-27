@@ -111,7 +111,7 @@ class Board {
     }
 
     generateNewBoardsBlacksTurn() {
-        ;
+        
     }
 
     setScore() {
