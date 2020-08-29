@@ -42,7 +42,9 @@ class Board {
         }
     }
 
-    
+    /**
+     * 
+     */
     show() {
         for(let i = 0; i < this.whitePieces.length; i++) {
             this.whitePieces[i].show();
@@ -149,6 +151,9 @@ class Board {
         return this.whitePieces[0].taken || this.blackPieces[0].taken;
     }
 
+    /**
+     * @return {boolean} Describe whether the King of either side has been taken
+     */
     isDead() {
         return whiteAI && whitesMove ? this.whitePieces[0].taken :
                blackAI && !whitesMove ? this.blackPieces[0].taken :

@@ -1,14 +1,18 @@
 /**
  * Class setting up the basic board and maneuver properties of all the pieces
+ * @external ./libraries/p5.js
  */
 class Piece {
     /**
      * Create a piece with an intial position, side, category and appearance
-     * @param {number} x 
-     * @param {number} y 
-     * @param {boolean} isWhite 
-     * @param {string} letter 
-     * @param {string} pic 
+     * @param {number} x The matrix position x |---->
+     *                                         | 
+     *                                         | 
+     *                                        \|/  
+     * @param {number} y The matrix position y
+     * @param {boolean} isWhite  Describe whether a piece belongs to black or white
+     * @param {string} letter Describe the representing symbol of a piece
+     * @param {string} pic The file path of the image
      */
     constructor(x, y, isWhite, letter, pic) {
         this.matrixPosition = createVector(x, y);
@@ -21,6 +25,13 @@ class Piece {
         this.value = 0;
     }
 
+    /**
+     * If the piece is not taken, initalize the imageMode.
+     * If the user is moving the piece, the piece follows the mouse.
+     * If the user is not moving the piece, show the piece according to its store position.
+     * @see https://p5js.org/reference/#/p5/imageMode
+     * @see https://p5js.org/reference/#/p5/image
+     */
     show() {
         if(!this.taken) {
             imageMode(CENTER);
@@ -35,6 +46,10 @@ class Piece {
         }
     }
 
+    /**
+     * 
+     * @param {Object} currentBoard 
+     */
     generateNewBoards(currentBoard) {
         let boards = []; // all boards created from moving this piece
         let moves = this.generateMoves(currentBoard); 
