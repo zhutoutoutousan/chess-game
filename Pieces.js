@@ -57,14 +57,23 @@ class Piece {
             boards[i] = currentBoard.clone();
         }
     }
-
+    /**
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     */
     withinBounds(x, y) {
         if (x >= 0 && y >= 0 && x < 8 && y < 8){
             return true;
         }
         return false;
     }
-
+    /**
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} board 
+     */
     attackingAllies(x, y, board){
         let attacking = board.getPieceAt(x, y);
         if(attacking != null) {
@@ -74,14 +83,25 @@ class Piece {
         }
         return false;
     }
-
+    /**
+     * 
+     * @param {*} x 
+     * @param {*} y 
+     * @param {*} board 
+     */
     canMove(x, y, board) {
         if(!this,withinBounds(x, y)){
             return false;
         }
         return true;
     }
-
+    /**
+     * 
+     * @param {Number} x 
+     * @param {Number} y 
+     * @param {Object} board 
+     * @return {Boolean} 
+     */
     moveThroughPieces(x, y, board) {
         let stepDirectionX = x - this.matrixPosition.x;
         stepDirectionX = stepDirectionX > 0 ? 1
@@ -104,12 +124,17 @@ class Piece {
         return false;
     }
 
+    /**
+     * Return all possible moves for a piece that can move diagonally
+     * @param {number} order  0: leftTop-rightBottom  1: leftBottom-rightTop
+     * @param {Object} board  The board Object called upon
+     */
     diagSweep(order, board) {
         let moves = [];
         for(let i = 0; i < 8; i++){
             let x = order == 0 ? i : this.matrixPosition.x + this.matrixPosition.y - i;
             let y = order == 0 ? this.matrixPosition.y : i;
-            let refPoint = order == 0 ? this.matrixPosition.x : this.matrixPosition.y;
+            let refPoint = order === 0 ? this.matrixPosition.x : this.matrixPosition.y;
             if(
                 i != refPoint &&
                 !this.attackingAllies(x, y, board) &&
@@ -119,6 +144,11 @@ class Piece {
         return moves;
     }
 
+    /**
+     * 
+     * @param {*} order 
+     * @param {*} board 
+     */
     lineSweep(order, board) {
         for(let i = 0; i < 8; i++){
             let x = order == 0 ? i : this.matrixPosition.x;
