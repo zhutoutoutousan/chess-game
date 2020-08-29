@@ -1,7 +1,10 @@
 /**
- * 
+ * Class setting up a chess board
  */
 class Board {
+    /**
+     * Set up the piece space and board score.
+     */
     constructor() {
         this.whitePieces = [];
         this.blackPieces = [];
@@ -10,7 +13,9 @@ class Board {
     }
 
 
-    // INITIALIZATION
+    /**
+     * Push pieces into the piece space
+     */
     setupPieces() {
         this.whitePieces.push(new King(4, 7, true));
         this.whitePieces.push(new Queen(3, 7, true));
@@ -37,6 +42,7 @@ class Board {
         }
     }
 
+    
     show() {
         for(let i = 0; i < this.whitePieces.length; i++) {
             this.whitePieces[i].show();

@@ -1,8 +1,18 @@
+/**
+ * Class setting up the basic board and maneuver properties of all the pieces
+ */
 class Piece {
+    /**
+     * Create a piece with an intial position, side, category and appearance
+     * @param {number} x 
+     * @param {number} y 
+     * @param {boolean} isWhite 
+     * @param {string} letter 
+     * @param {string} pic 
+     */
     constructor(x, y, isWhite, letter, pic) {
-        this.matrixPosition = createVector(x, y); // TODO: Learn p5.js
+        this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
-
         this.taken = false;
         this.white = isWhite;
         this.letter = letter;
