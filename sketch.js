@@ -18,9 +18,7 @@ let blackAI = true;
 
 
 /**
- * @param {undefined}
- * @return {undefined}
- * @description 
+ * p5.js setup bench, load HTML, image, canvas, and intialize the board instance
  */
 function setup() {
     createCanvas(800,800);
@@ -33,11 +31,14 @@ function setup() {
     for(let i = 10; i< 13; i++){
         images.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_${i}.png`));
     }
+
+    /** @global */
     test = new Board();
 }
 
 /**
- * @description
+ * Pain the grid, use Board {test} instance to pain all the pieces
+ * @todo Find out if showGrid() can be moved to setup to improve the performance
  */
 function draw() {
     background(100);
@@ -47,15 +48,31 @@ function draw() {
 
 
 /**
- * @description
+ * 
  */
 function mousePressed() {
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-    movingPiece = !moving ? test.getPieceAt(x, y) : movingPiece;
-    if (!moving && movingPiece != null && moving) {
-        
+    if(!test.isDone()) return;
+    if (!moving) {
+        movingPiece = test.getPieceAt(x, y);
+        if (movingPiece != null && movingPiece.white == whitesMove) {
+            movingPiece.movingThisPiece = true;
+        }
+        else {
+            return;
+        }
     }
+    else {
+        if (movingPiece.canMove(x, y, test)) {
+            movingPiece.move(x, y, test);
+            whitesMove = !whitesMove;
+        }
+        else {
+            movingPiece.movingThisPiece = false;
+        }
+    }
+    moving = !moving;
 }
 
 /**

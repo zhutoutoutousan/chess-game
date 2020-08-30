@@ -61,10 +61,11 @@ class Board {
     // METHODS
 
     /**
-     * @description This 
+     * If there is any piece in the given matrix position that is not taken,
+     * return the piece object, otherwise return null
      * @param {number} x 
      * @param {number} y 
-     * @returns {Object|null} The black/white Piece object that is on the coordinate when mouse pressed, if none, return null
+     * @returns {Object|null}
      */
     getPieceAt(x, y) {
         for(let i = 0; i < this.whitePieces.length; i++) {
@@ -143,16 +144,26 @@ class Board {
 
     // STATE
 
+    /**
+     * 
+     * @param {number} x 
+     * @param {number} y 
+     */
     isPieceAt(x, y) {
         return this.getPieceAt(x,y) ? true : false;
     }
 
+    /**
+     * Used in sketch.js mousePressed() to determine if the game is over.
+     * @return {boolean} Whether the game is over.
+     */
     isDone() {
         return this.whitePieces[0].taken || this.blackPieces[0].taken;
     }
 
     /**
-     * @return {boolean} Describe whether the King of either side has been taken
+     * @return {boolean} For every AI, if it is the black/white's move, 
+     *                   return whether that side is lost
      */
     isDead() {
         return whiteAI && whitesMove ? this.whitePieces[0].taken :
@@ -160,6 +171,10 @@ class Board {
                false;
     }
 
+    /**
+     * @return {boolean} For every AI, if it is the black/white's move, 
+     *                   return whether that side has won
+     */
     hasWon() {
         return whiteAI && whitesMove ? this.blackPieces[0].taken :
                blackAI && !whitesMove ? this.whitePieces[0].taken :

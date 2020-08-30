@@ -1,5 +1,11 @@
+/** @global */
 let maxDepth = 3;
 
+/**
+ * 
+ * @param {Object} board 
+ * @param {number} depth 
+ */
 function minFun(board, depth) {
     if (depth >= maxDepth) {
         board.setScore();

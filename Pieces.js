@@ -367,6 +367,9 @@ class Rook extends Piece {
     }
 }
 
+/**
+ * @extends Piece
+ */
 class Knight extends Piece {
     constructor(x, y, isWhite) {
         super(x, y, isWhite);
@@ -384,6 +387,11 @@ class Knight extends Piece {
                ) ? true : false;
     }
 
+    /**
+     * 
+     * @param {Object} board 
+     * @return {Object}
+     */
     generateMoves(board) {
         let moves = [];
         let candidateMoves = [];
