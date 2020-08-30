@@ -164,6 +164,7 @@ class Board {
             this.score += !this.blackPieces[i].taken ? this.blackPieces[i].value : '';
         }
     }
+    
     // AI
 
 

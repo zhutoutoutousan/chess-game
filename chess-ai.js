@@ -38,7 +38,52 @@ function minFun(board, depth) {
 function maxFun(board, depth) {
     if (depth >= maxDepth ) {
         board.setScore();
+        return board.score;
     }
-    return board.score;
+
+
+    let boards = board.generateNewBoardsBlacksTurn();
+    let topBoardNo = 0;
+    let topScore = -100000;
+
+    if (depth == 0) {
+        print(boards);
+    }
+
+    for (let i = 0; i< boards.length; i++) {
+        let score = minFun(boards[i], depth + 1);
+        if (score > topScore) {
+            topBoardNo = i;
+            topScore = score;
+        }
+    }
+    
+    if (depth == 0) {
+        print(topScore);
+        return boards[topBoardNo];
+    }
+
+    return topScore;
 }
 
+/**
+ * 
+ * @param {Object} board 
+ * @param {*} alpha 
+ * @param {*} beta 
+ * @param {*} depth 
+ */
+function minFunAB(board, alpha, beta, depth) {
+    ;
+}
+
+/**
+ * 
+ * @param {*} board 
+ * @param {*} alpha 
+ * @param {*} beta 
+ * @param {*} depth 
+ */
+function MaxFunAB(board, alpha, beta, depth) {
+    ;
+}
