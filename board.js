@@ -73,7 +73,8 @@ class Board {
                 !this.whitePieces[i].taken &&
                 this.whitePieces[i].matrixPosition.x == x && 
                 this.whitePieces[i].matrixPosition.y == y
-                ) {
+                ) 
+                {
                 return this.whitePieces[i];
             }
         }
@@ -146,6 +147,9 @@ class Board {
         return boards;
     }
 
+    /**
+     * 
+     */
     setScore() {
         this.score = 0;
         for (let i = 0; i < this.whitePieces.length; i++) {
