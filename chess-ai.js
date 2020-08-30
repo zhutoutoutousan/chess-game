@@ -74,7 +74,32 @@ function maxFun(board, depth) {
  * @param {*} depth 
  */
 function minFunAB(board, alpha, beta, depth) {
-    ;
+    if (depth >= maxDepth) {
+        board.setScore();
+        return board.score;
+    }
+
+
+    if (board.isDead()) {
+        if (whiteAI && whitesMove) {
+            return 200;
+        }
+        if (blackAI && !whitesMove) {
+            return -200;
+        }
+    }
+
+    if (board.hasWon()) {
+
+        if (whiteAI && whitesMove) {
+            return -200;
+        }
+        if (blackAI && !whitesMove) {
+            return 200;
+        }
+    }
+
+    
 }
 
 /**
