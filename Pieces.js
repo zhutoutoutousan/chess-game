@@ -49,6 +49,7 @@ class Piece {
     /**
      * 
      * @param {Object} currentBoard 
+     * @return {Object}
      */
     generateNewBoards(currentBoard) {
         let boards = []; // all boards created from moving this piece
@@ -56,6 +57,8 @@ class Piece {
         for(let i = 0; i < moves.length; i++) {
             boards[i] = currentBoard.clone();
         }
+
+        return boards;
     }
     /**
      * 

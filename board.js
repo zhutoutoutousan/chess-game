@@ -113,15 +113,37 @@ class Board {
 
 
     // AI
+
+    /**
+     *  @return {Array} 
+     */
     generateNewBoardsWhitesTurn() {
-        let board = [];
+        let boards = [];
         for(let i = 0; i < this.whitePieces.length; i++) {
-            ;       
+            if (!this.whitePieces[i].taken) {
+                let tempArr = this.whitePieces[i].generateNewBoards(this);
+                for (let j = 0; i < tempArr.length; j++ ) {
+                    boards.push(tempArr[j]);
+                }
+            }
         }
+        return boards;
     }
 
+    /**
+     * @return {Array}
+     */
     generateNewBoardsBlacksTurn() {
-        
+        let boards = [];
+        for(let i = 0; i < this.blackPieces.length; i++) {
+            if (!this.blackPieces[i].taken) {
+                let tempArr = this.blackPieces[i].generateNewBoards(this);
+                for (let j = 0; i < tempArr.length; j++ ) {
+                    boards.push(tempArr[j]);
+                }
+            }
+        }        
+        return boards;
     }
 
     setScore() {

@@ -16,7 +16,7 @@ function minFun(board, depth) {
     let lowestBoardNo = 0;
     let lowestScore = 100000;
     let score = 0;
-    let gameOver = boards[i].isDead() ? true : false;
+    
     for (let i = 0; i < board.length; i++) {
         score = !boards[i].isDead() ? 
     }
