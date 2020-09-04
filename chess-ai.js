@@ -15,7 +15,6 @@ function minFun(board, depth) {
     let boards = board.generateNewBoardsWhitesTurn();
     let lowestBoardNo = 0;
     let lowestScore = 100000;
-    let score = 0;
 
     for (let i = 0; i < board.length; i++) {
         if (!boards[i].isDead()) {
@@ -109,6 +108,55 @@ function minFunAB(board, alpha, beta, depth) {
  * @param {*} beta 
  * @param {*} depth 
  */
-function MaxFunAB(board, alpha, beta, depth) {
-    ;
+function maxFunAB(board, alpha, beta, depth) {
+    if (depth == 0) {
+        board.setScore();
+        return board.score;
+    }
+
+    if (board.isDead()) {
+        if (whiteAI && whitesMove) {
+            return 200;
+        }
+        if (blackAI && !whitesMove) {
+            return -200;
+        }
+    }
+
+    // dubious?
+    if (board.hasWon()) {
+        if (whiteAI && whitesMove) {
+          return -200;
+        }
+        if (blackAI && !whitesMove) {
+          return 200;
+        }
+    }
+
+    let boards = board.generateNewBoardsBlacksTurn();
+    if (depth == 0) {
+        print(boards);
+    }
+
+    let topBoardNo = 0;
+    let topScore = -300;
+    for (let i = 0; i < boards.length; i++) {
+        let score = minFunAB(boards[i], alpha, beta, depth + 1);
+        if (score > topScore) {
+            topBoardNo = i;
+            topScore = score;
+        }
+        else {
+            topBoardNo = depth == 0 && score == topScore && Random(1) < 0.3 ? i : topBoardNo;
+        }
+
+        if (score > beta) return topScore;
+        if (score > alpha) alpha = score;
+    }
+
+    if (depth == 0) {
+        print(topScore);
+        return boards[topBoardNo];
+    }
+    return topScore;
 }
