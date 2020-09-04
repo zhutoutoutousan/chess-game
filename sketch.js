@@ -15,7 +15,10 @@ let calDepth = 3;
 let maxDepth = 6;
 let whiteAI = false;
 let blackAI = true;
-
+let tempMaxDepth = 3;
+let depthPara;
+let depthPlus;
+let depthMinus;
 
 /**
  * p5.js setup bench, load HTML, image, canvas, and intialize the board instance
@@ -34,6 +37,7 @@ function setup() {
 
     /** @global */
     test = new Board();
+
 }
 
 /**
@@ -44,6 +48,7 @@ function draw() {
     background(100);
     showGrid();
     test.show();
+    runAIs();
 }
 
 
@@ -73,6 +78,36 @@ function mousePressed() {
         }
     }
     moving = !moving;
+}
+
+function runAIs() {
+    let maxDepth = tempMaxDepth;
+    if (
+        !test.isDead() && !test.hasWon() &&
+        blackAI && !whitesMove &&
+        moveCounter < 0
+    ){
+        test = maxFunAB(test, -400, 400, 0);
+        print(test);
+        whitesMove = true;
+        moveCounter = 10;
+    }
+    else {
+        moveCounter--;
+    }
+    if (
+        whiteAI && whitesMove &&
+        moveCounter < 0
+    ){
+        test = minFunAB(test, -400, 400, 0);
+        print("test", test);
+        
+        whitesMove = false;
+        moveCounter = 10;
+    }
+    else {
+        moveCounter--;
+    }
 }
 
 /**
