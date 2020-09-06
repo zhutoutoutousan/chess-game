@@ -24,8 +24,9 @@ let depthMinus;
  * p5.js setup bench, load HTML, image, canvas, and intialize the board instance
  */
 function setup() {
-    console.log("Setting up")
-    createCanvas(800,800);
+console.log("Setting up")
+    let boardCanvas = createCanvas(800,800);
+    boardCanvas.id('chessboard');
     initializeHtmlElements();
 
     // load all chess pieces images
@@ -57,14 +58,15 @@ function draw() {
  * 
  */
 function mousePressed() {
-    console.log("Mouse is pressed")
+    console.log("EVENT: Mouse is pressed")
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-    console.log(test.isDone());
-    console.log(test);
+console.log("IS");
+console.log(test.isDone());
+console.log(test);
     if(test.isDone()) return;
     if (!moving) {
-        console.log("moving")
+console.log("moving")
         movingPiece = test.getPieceAt(x, y);
         if (movingPiece != null && movingPiece.white == whitesMove) {
             movingPiece.movingThisPiece = true;
@@ -133,6 +135,9 @@ function showGrid() {
     }
 }
 
+/**
+ * DOM manipulation is expensive, consider move this to the html
+ */
 function initializeHtmlElements() {
     const titlePara = document.createElement('h3');
     const buttonPlus = document.createElement('button');
