@@ -24,6 +24,7 @@ let depthMinus;
  * p5.js setup bench, load HTML, image, canvas, and intialize the board instance
  */
 function setup() {
+    console.log("Setting up")
     createCanvas(800,800);
     initializeHtmlElements();
 
@@ -56,10 +57,14 @@ function draw() {
  * 
  */
 function mousePressed() {
+    console.log("Mouse is pressed")
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-    if(!test.isDone()) return;
+    console.log(test.isDone());
+    console.log(test);
+    if(test.isDone()) return;
     if (!moving) {
+        console.log("moving")
         movingPiece = test.getPieceAt(x, y);
         if (movingPiece != null && movingPiece.white == whitesMove) {
             movingPiece.movingThisPiece = true;
