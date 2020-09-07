@@ -153,11 +153,11 @@ class Board {
     setScore() {
         this.score = 0;
         for (let i = 0; i < this.whitePieces.length; i++) {
-            if(!this.whitePiece[i].taken) {
+            if(!this.whitePieces[i].taken) {
                 this.score -= this.whitePieces[i].value;
             }
             else {
-                print(`${this.whitePiece[i]} is taken`);
+                print(`${this.whitePieces[i]} is taken`);
             }
         }
         for (let i = 0; i < this.blackPieces.length; i++) {
