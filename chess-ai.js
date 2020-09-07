@@ -1,5 +1,5 @@
 /** @global */
-let maxDepth = 3;
+// let maxDepth = 3;
 
 /**
  * 

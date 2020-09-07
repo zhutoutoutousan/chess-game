@@ -176,7 +176,7 @@ class Pawn extends Piece {
     }
 
     canMove(x, y, board) {
-        const basicCondition = !this.withinBounds(x, y) &&
+        const basicViolation = !this.withinBounds(x, y) &&
                              this.attackingAllies(x, y, board);
 
         const canAttack = !board.isPieceAt(x, y) ? false : 
@@ -205,8 +205,15 @@ class Pawn extends Piece {
 
         const canEnPassant = false; // TODO
         this.firstTurn = canAttack || canMarch ? false : this.firstTurn;
-
-        return basicCondition && (canAttack || canMarch || canEnPassant);
+console.log("QUERY-PAWN: This pawn can Attack?");
+console.log(canAttack);
+console.log("QUERY-PAWN: Basic movement violation?");
+console.log(basicViolation);
+console.log("QUERY-PAWN: can March?");
+console.log(canMarch);
+console.log("QUERY-PAWN: verdict - Can move?")
+console.log(!basicViolation && (canAttack || canMarch || canEnPassant));
+        return !basicViolation && (canAttack || canMarch || canEnPassant);
     }
 
 
@@ -249,8 +256,11 @@ class Pawn extends Piece {
     }
 
     move(x, y, board) {
+
         let attacking = board.getPieceAt(x, y);
-        attacking.taken = !attacking ? true : false;
+console.log("STATE-PAWN_MOVE: This pawn attacking?");
+console.log(attacking);
+        if(attacking) attacking.taken = !attacking ? true : false;
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
         this.firstTurn = false;

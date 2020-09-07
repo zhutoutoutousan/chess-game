@@ -61,13 +61,18 @@ function mousePressed() {
     console.log("EVENT: Mouse is pressed")
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-console.log("IS");
+console.log("QUERY: Board is done?");
 console.log(test.isDone());
+console.log("STATE: Test board");
 console.log(test);
+console.log("QUERY: moving flag");
+console.log(moving)
     if(test.isDone()) return;
     if (!moving) {
-console.log("moving")
+console.log("DO: moving")
         movingPiece = test.getPieceAt(x, y);
+console.log("STATE: Show the piece moving")
+console.log(movingPiece);
         if (movingPiece != null && movingPiece.white == whitesMove) {
             movingPiece.movingThisPiece = true;
         }
@@ -76,7 +81,10 @@ console.log("moving")
         }
     }
     else {
+console.log("QUERY: Check if this piece can move");
+console.log(movingPiece.canMove(x, y, test));
         if (movingPiece.canMove(x, y, test)) {
+console.log("EVENT: Moving the piece");
             movingPiece.move(x, y, test);
             whitesMove = !whitesMove;
         }
