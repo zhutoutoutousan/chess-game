@@ -51,7 +51,8 @@ function draw() {
     showGrid();
 // After moving, the test is set to zero, where could the object be changed to zero?
 if(!test) console.log("ERRER: For a while the test object doesn't exist")
-    if(test) test.show();
+    // if(test) 
+    test.show();
     runAIs();
 }
 

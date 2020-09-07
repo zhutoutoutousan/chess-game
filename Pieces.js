@@ -127,6 +127,14 @@ class Piece {
         return false;
     }
 
+    move(x, y, board) {
+        let attacking = board.getPieceAt(x, y);
+        if(attacking) attacking.taken = true;
+
+        this.matrixPosition = createVector(x, y);
+        this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
+    }
+
     /**
      * Return all possible moves for a piece that can move diagonally
      * @param {number} order  0: leftTop-rightBottom  1: leftBottom-rightTop
