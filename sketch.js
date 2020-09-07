@@ -47,12 +47,16 @@ console.log("Setting up")
  * @todo Find out if showGrid() can be moved to setup to improve the performance
  */
 function draw() {
+    let currentBoard;
     background(100);
     showGrid();
 // After moving, the test is set to zero, where could the object be changed to zero?
 if(!test) console.log("ERRER: For a while the test object doesn't exist")
-    // if(test) 
-    test.show();
+    // if(test)
+console.log(test);
+console.log(currentBoard);
+    currentBoard = test ? test : currentBoard ? currentBoard : 1; 
+    currentBoard.show();
     runAIs();
 }
 
@@ -61,21 +65,21 @@ if(!test) console.log("ERRER: For a while the test object doesn't exist")
  * 
  */
 function mousePressed() {
-    console.log("EVENT: Mouse is pressed")
+// console.log("EVENT: Mouse is pressed")
     let x = floor(mouseX / tileSize);
     let y = floor(mouseY / tileSize);
-console.log("QUERY: Board is done?");
-console.log(test.isDone());
-console.log("STATE: Test board");
-console.log(test);
-console.log("QUERY: moving flag");
-console.log(moving)
+// console.log("QUERY: Board is done?");
+// console.log(test.isDone());
+// console.log("STATE: Test board after mouse press");
+// console.log(test);
+// console.log("QUERY: moving flag");
+// console.log(moving)
     if(test.isDone()) return;
     if (!moving) {
-console.log("DO: moving")
+// console.log("DO: moving")
         movingPiece = test.getPieceAt(x, y);
-console.log("STATE: Show the piece moving")
-console.log(movingPiece);
+// console.log("STATE: Show the piece moving")
+// console.log(movingPiece);
         if (movingPiece != null && movingPiece.white == whitesMove) {
             movingPiece.movingThisPiece = true;
         }
@@ -84,11 +88,12 @@ console.log(movingPiece);
         }
     }
     else {
-console.log("QUERY: Check if this piece can move");
-console.log(movingPiece.canMove(x, y, test));
+// console.log("QUERY: Check if this piece can move");
+// console.log(movingPiece.canMove(x, y, test));
         if (movingPiece.canMove(x, y, test)) {
-console.log("EVENT: Moving the piece");
+// console.log("EVENT: Moving the piece");
             movingPiece.move(x, y, test);
+
             whitesMove = !whitesMove;
         }
         else {
@@ -96,6 +101,8 @@ console.log("EVENT: Moving the piece");
         }
     }
     moving = !moving;
+console.log("STATE: Test board after move");
+console.log(test);
 }
 
 function runAIs() {
@@ -105,6 +112,7 @@ function runAIs() {
         blackAI && !whitesMove &&
         moveCounter < 0
     ){
+        // BLUNDER: test returns 0, when it should be a board object
         test = maxFunAB(test, -400, 400, 0);
         print(test);
         whitesMove = true;

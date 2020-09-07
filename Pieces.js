@@ -133,6 +133,8 @@ class Piece {
 
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
+console.log("QUERY-GENERIC_MOVE: Check test board state");
+console.log(test);
     }
 
     /**
@@ -213,14 +215,14 @@ class Pawn extends Piece {
 
         const canEnPassant = false; // TODO
         this.firstTurn = canAttack || canMarch ? false : this.firstTurn;
-console.log("QUERY-PAWN: This pawn can Attack?");
-console.log(canAttack);
-console.log("QUERY-PAWN: Basic movement violation?");
-console.log(basicViolation);
-console.log("QUERY-PAWN: can March?");
-console.log(canMarch);
-console.log("QUERY-PAWN: verdict - Can move?")
-console.log(!basicViolation && (canAttack || canMarch || canEnPassant));
+// console.log("QUERY-PAWN: This pawn can Attack?");
+// console.log(canAttack);
+// console.log("QUERY-PAWN: Basic movement violation?");
+// console.log(basicViolation);
+// console.log("QUERY-PAWN: can March?");
+// console.log(canMarch);
+// console.log("QUERY-PAWN: verdict - Can move?")
+// console.log(!basicViolation && (canAttack || canMarch || canEnPassant));
         return !basicViolation && (canAttack || canMarch || canEnPassant);
     }
 
@@ -266,12 +268,15 @@ console.log(!basicViolation && (canAttack || canMarch || canEnPassant));
     move(x, y, board) {
 
         let attacking = board.getPieceAt(x, y);
-console.log("STATE-PAWN_MOVE: This pawn attacking?");
-console.log(attacking);
+// console.log("STATE-PAWN_MOVE: This pawn attacking?");
+// console.log(attacking);
         if(attacking) attacking.taken = !attacking ? true : false;
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
         this.firstTurn = false;
+
+console.log("QUERY-PAWN_MOVE: Check test board state");
+console.log(test);
     }
 
     // IsEnPassant(x, y, board){
