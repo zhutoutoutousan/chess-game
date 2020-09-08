@@ -163,6 +163,7 @@ console.log(test);
      * @param {*} board 
      */
     lineSweep(order, board) {
+        let moves = [];
         for(let i = 0; i < 8; i++){
             let x = order == 0 ? i : this.matrixPosition.x;
             let y = order == 0 ? this.matrixPosition.y : i;
@@ -173,6 +174,8 @@ console.log(test);
                 !this.moveThroughPieces(x, y, board)
             ) moves.push(createVector(x, y));
         }
+
+        return moves;
     }
 }
 
@@ -258,6 +261,7 @@ class Pawn extends Piece {
         print("pawn", moves);
         return moves;
     }
+
     clone() {
         let clone = new Pawn(this.matrixPosition.x, this.matrixPosition.y, this.white);
         clone.taken = this.taken;
@@ -306,14 +310,13 @@ class King extends Piece {
         let c_x = this.matrixPosition.x;
         let c_y = this.matrixPosition.y;
         let moves = [];
-        let container = new Array(8);
         for (let i = -1; i < 2; i++) {
             for (let j = -1; j < 2; j++) {
                 if ( (i != 0 || j != 0) &&
-                     this.withinBounds(c_x+x, c_y+y) &&
-                     !this.attackingAllies(c_x+x, c_y+y, board)
+                     this.withinBounds(c_x+i, c_y+j) &&
+                     !this.attackingAllies(c_x+i, c_y+j, board)
                 ){
-                    moves.push(createVector(x, y))
+                    moves.push(createVector(c_x+i, c_y+j))
                 }
             }
         }

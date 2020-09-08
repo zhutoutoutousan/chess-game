@@ -109,7 +109,7 @@ function minFunAB(board, alpha, beta, depth) {
  * @param {*} depth 
  */
 function maxFunAB(board, alpha, beta, depth) {
-    if (depth == 0) {
+    if (depth >= maxDepth) {
         board.setScore();
         return board.score;
     }
