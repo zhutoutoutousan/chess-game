@@ -117,6 +117,7 @@ class Board {
 
     /**
      *  @return {Array} 
+     *  ISSUE:
      */
     generateNewBoardsWhitesTurn() {
         let boards = [];
@@ -133,6 +134,7 @@ class Board {
 
     /**
      * @return {Array}
+     * ISSUE: return empty
      */
     generateNewBoardsBlacksTurn() {
         let boards = [];

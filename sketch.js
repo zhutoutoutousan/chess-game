@@ -110,7 +110,7 @@ function runAIs() {
         moveCounter < 0
     ){
         // BLUNDER: test returns 0, when it should be a board object
-        test = maxFunAB(test, -400, 400, 0);
+        test = maxFunAB(test, -400, 400, maxDepth);
         print(test);
         whitesMove = true;
         moveCounter = 10;
@@ -122,7 +122,7 @@ function runAIs() {
         whiteAI && whitesMove &&
         moveCounter < 0
     ){
-        test = minFunAB(test, -400, 400, 0);
+        test = minFunAB(test, -400, 400, maxDepth);
         print("test", test);
         
         whitesMove = false;
