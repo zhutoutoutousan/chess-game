@@ -109,15 +109,16 @@ class Piece {
         let stepDirectionX = x - this.matrixPosition.x;
         stepDirectionX = stepDirectionX > 0 ? 1
                          : stepDirectionX < 0 ? -1
-                         : undefined;
+                         : 0;
         let stepDirectionY = y - this.matrixPosition.y;
         stepDirectionY = stepDirectionY > 0 ? 1
                          : stepDirectionY < 0 ? -1
-                         : undefined;
+                         : 0;
         let tempPos = createVector(this.matrixPosition.x, this.matrixPosition.y);
         tempPos.x += stepDirectionX;
         tempPos.y += stepDirectionY;
         while (tempPos.x != x || tempPos.y != y){
+console.log(tempPos);
             if(board.getPieceAt(tempPos.x, tempPos.y) != null) {
                 return true;
             }
@@ -231,6 +232,7 @@ class Pawn extends Piece {
 
 
     generateMoves(board) {
+console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixPosition.y} `)
         let moves = [];
 
         // Attacking
@@ -259,6 +261,8 @@ class Pawn extends Piece {
                 moves.push(createVector(x,y));
         }
         print("pawn", moves);
+console.log('Available PAWN moves')
+console.log(moves);        
         return moves;
     }
 
@@ -307,6 +311,7 @@ class King extends Piece {
     }
 
     generateMoves(board) {
+console.log('Generate moves for KING')
         let c_x = this.matrixPosition.x;
         let c_y = this.matrixPosition.y;
         let moves = [];
@@ -320,7 +325,11 @@ class King extends Piece {
                 }
             }
         }
+console.log('Available King moves')
+console.log(moves);
         return moves;
+
+
     }
 
     clone() {
