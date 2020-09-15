@@ -238,7 +238,7 @@ console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixP
         // Attacking
         for(let i = -1; i < 2; i += 2){
             let x = this.matrixPosition.x + i;
-            let y = this.white ? this.matrixPosition.y - 1 : this.matrixPosition + 1;
+            let y = this.white ? this.matrixPosition.y - 1 : this.matrixPosition.y + 1;
             let attacking = board.getPieceAt(x, y);
             if (attacking && (!this.attackingAllies(x, y, board))) {
                 moves.push(createVector(x, y));
@@ -247,7 +247,7 @@ console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixP
 
         // Regular move
         let x = this.matrixPosition.x;
-        let y = this.white ? this.matrixPosition.y - 1 : this.matrixPosition + 1;
+        let y = this.white ? this.matrixPosition.y - 1 : this.matrixPosition.y + 1;
         if(!board.isPieceAt(x, y) && this.withinBounds(x, y)) {
             moves.push(createVector(x, y));
         }
