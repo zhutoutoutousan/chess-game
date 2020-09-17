@@ -280,7 +280,7 @@ console.log(moves);
         let attacking = board.getPieceAt(x, y);
 // console.log("STATE-PAWN_MOVE: This pawn attacking?");
 // console.log(attacking);
-        if(attacking) attacking.taken = !attacking ? true : false;
+        if(attacking) attacking.taken = true;
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
         this.firstTurn = false;
