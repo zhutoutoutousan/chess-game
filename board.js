@@ -105,8 +105,12 @@ class Board {
     clone() {
         let clone = new Board();
         for (let i = 0; i < this.whitePieces.length; i++) {
-            clone.whitePieces
+            clone.whitePieces[i] = this.whitePieces[i].clone();
         }
+        for (let i = 0; i < this.blackPieces.length; i++) {
+            clone.blackPieces[i] = this.blackPieces[i].clone();
+        }
+        return clone;
     }
 
     // METHODS
@@ -141,9 +145,7 @@ class Board {
         for(let i = 0; i < this.blackPieces.length; i++) {
             if (!this.blackPieces[i].taken) {
                 let tempArr = this.blackPieces[i].generateNewBoards(this);
-                for (let j = 0; i < tempArr.length; j++ ) {
-                    boards.push(tempArr[j]);
-                }
+                    boards.push(...tempArr);
             }
         }        
         return boards;

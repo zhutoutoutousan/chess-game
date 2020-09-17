@@ -54,10 +54,12 @@ class Piece {
     generateNewBoards(currentBoard) {
         let boards = []; // all boards created from moving this piece
         let moves = this.generateMoves(currentBoard); 
+console.log(`GENERATE BOARD`)
         for(let i = 0; i < moves.length; i++) {
             boards[i] = currentBoard.clone();
+            boards[i].move(this.matrixPosition, moves[i]);
         }
-
+console.log(boards)
         return boards;
     }
     /**
@@ -118,7 +120,7 @@ class Piece {
         tempPos.x += stepDirectionX;
         tempPos.y += stepDirectionY;
         while (tempPos.x != x || tempPos.y != y){
-console.log(tempPos);
+// console.log(tempPos);
             if(board.getPieceAt(tempPos.x, tempPos.y) != null) {
                 return true;
             }
@@ -134,8 +136,8 @@ console.log(tempPos);
 
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
-console.log("QUERY-GENERIC_MOVE: Check test board state");
-console.log(test);
+// console.log("QUERY-GENERIC_MOVE: Check test board state");
+// console.log(test);
     }
 
     /**
