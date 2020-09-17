@@ -114,7 +114,13 @@ function maxFunAB(board, alpha, beta, depth) {
         return board.score;
     }
 
+    // if (board.isDead() || board.hasWon()) return whiteAI && whitesMove ? 
+    //                                                 board.isDead() ? 200 : 
+    //                                                 blackAI && !whitesMove ?
+    //                                                 -200 : 
+                                                 
     if (board.isDead()) {
+
         if (whiteAI && whitesMove) {
             return 200;
         }

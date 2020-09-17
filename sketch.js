@@ -103,14 +103,13 @@ console.log(test);
 }
 
 function runAIs() {
-    let maxDepth = tempMaxDepth;
     if (
         !test.isDead() && !test.hasWon() &&
         blackAI && !whitesMove &&
         moveCounter < 0
     ){
         // BLUNDER: test returns 0, when it should be a board object
-        test = maxFunAB(test, -400, 400, maxDepth);
+        test = maxFunAB(test, -400, 400, 0);
         print(test);
         whitesMove = true;
         moveCounter = 10;
@@ -122,7 +121,7 @@ function runAIs() {
         whiteAI && whitesMove &&
         moveCounter < 0
     ){
-        test = minFunAB(test, -400, 400, maxDepth);
+        test = minFunAB(test, -400, 400, 0);
         print("test", test);
         
         whitesMove = false;
