@@ -12,7 +12,7 @@ let images = [];
 
 // AI
 let calDepth = 3;
-let maxDepth = 6;
+let maxDepth = 9;
 let whiteAI = false;
 let blackAI = true;
 let tempMaxDepth = 3;
@@ -104,13 +104,13 @@ console.log(test);
 
 function runAIs() {
     if (
-        !test.isDead() && !test.hasWon() &&
+        !test.isDead() &&
         blackAI && !whitesMove &&
         moveCounter < 0
     ){
         // BLUNDER: test returns 0, when it should be a board object
         test = maxFunAB(test, -400, 400, 0);
-        print(test);
+// console.log(test);
         whitesMove = true;
         moveCounter = 10;
     }
@@ -122,8 +122,6 @@ function runAIs() {
         moveCounter < 0
     ){
         test = minFunAB(test, -400, 400, 0);
-        print("test", test);
-        
         whitesMove = false;
         moveCounter = 10;
     }
@@ -159,7 +157,7 @@ function initializeHtmlElements() {
     const buttonMinus = document.createElement('button');
     const displayPara = document.createElement('p')
     const addDepth = _ => {
-         displayPara.innerText = calDepth > 5 ? 
+         displayPara.innerText = calDepth > maxDepth ? 
                                 `Thinking ${calDepth} moves ahead` :
                                 `Thinking ${++calDepth} moves ahead`;
     };

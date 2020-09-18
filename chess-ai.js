@@ -50,7 +50,7 @@ function maxFun(board, depth) {
     }
 
     for (let i = 0; i< boards.length; i++) {
-        let score = minFun(boards[i], depth + 1);
+        score = minFun(boards[i], depth + 1);
         if (score > topScore) {
             topBoardNo = i;
             topScore = score;
@@ -73,87 +73,85 @@ function maxFun(board, depth) {
  * @param {*} depth 
  */
 function minFunAB(board, alpha, beta, depth) {
-    if (depth >= maxDepth) {
+    if (depth >= tempMaxDepth) {
         board.setScore();
         return board.score;
     }
 
+    if (board.isDead()) return whiteAI && whitesMove ? 
+                               200 : blackAI && !whitesMove ?
+                              -200 : null; 
 
-    if (board.isDead()) {
-        if (whiteAI && whitesMove) {
-            return 200;
+    let boards = board.generateNewBoardsWhitesTurn();
+    let lowestBoardNo = 0;
+    let lowestScore = 300;
+    for (let i = 0; i < boards.length; i++) {
+        score = maxFunAB(boards[i], alpha, beta, depth + 1);
+        if (score < lowestScore) {
+            topBoardNo = i;
+            topScore = score;
         }
-        if (blackAI && !whitesMove) {
-            return -200;
+        else {
+            lowestBoardNo = depth == 0 && score == lowestScore && random(1) < 0.3 ? i : lowestBoardNo;
         }
+
+        if (score < alpha) return lowestScore;
+        if (score < beta) beta = score;
     }
 
-    if (board.hasWon()) {
+    if (score < alpha) return lowestScore;
+    if (score < beta) beta = score;
+    if (depth === 0) return boards[lowestBoardNo];
 
-        if (whiteAI && whitesMove) {
-            return -200;
-        }
-        if (blackAI && !whitesMove) {
-            return 200;
-        }
-    }
-
-    
+    return lowestScore;
 }
 
 /**
  * 
- * @param {*} board 
+ * @param {Object} board 
  * @param {*} alpha 
  * @param {*} beta 
  * @param {*} depth 
  */
 function maxFunAB(board, alpha, beta, depth) {
-    if (depth >= maxDepth) {
+// console.log(`----- `)
+console.log(`AI: Evaluating depth: ${depth}`);
+// console.log(`AI: Current board status`);
+// console.log(board);
+// console.log(`AI: Current alpha value: ${alpha}`);
+// console.log(`AI: Current beta value: ${beta}`);
+
+    let score;
+
+    // When the maxDepth is reached(The top of the callstack), return the board score to the
+    // caller(the higher level node)
+    if (depth >= tempMaxDepth) {
+        score = score ? score : 0;
         board.setScore();
         return board.score;
     }
 
-    // if (board.isDead() || board.hasWon()) return whiteAI && whitesMove ? 
-    //                                                 board.isDead() ? 200 : 
-    //                                                 blackAI && !whitesMove ?
-    //                                                 -200 : 
-                                                 
-    if (board.isDead()) {
+    // When the game is over, return scores directly
+    if (board.isDead()) return whiteAI && whitesMove ? 
+                               200 : blackAI && !whitesMove ?
+                              -200 : null; 
 
-        if (whiteAI && whitesMove) {
-            return 200;
-        }
-        if (blackAI && !whitesMove) {
-            return -200;
-        }
-    }
 
-    // dubious?
-    if (board.hasWon()) {
-        if (whiteAI && whitesMove) {
-          return -200;
-        }
-        if (blackAI && !whitesMove) {
-          return 200;
-        }
-    }
+    // Generate all possibilities for black to move given the present board.  
 
     let boards = board.generateNewBoardsBlacksTurn();
-    if (depth == 0) {
-        print(boards);
-    }
-
+// console.log(`AI: GENERATE all possibilities for black at depth: ${depth} `);
+// console.log(boards);
     let topBoardNo = 0;
     let topScore = -300;
     for (let i = 0; i < boards.length; i++) {
-        let score = minFunAB(boards[i], alpha, beta, depth + 1);
+        score = minFunAB(boards[i], alpha, beta, depth + 1);
         if (score > topScore) {
             topBoardNo = i;
             topScore = score;
         }
         else {
-            topBoardNo = depth == 0 && score == topScore && Random(1) < 0.3 ? i : topBoardNo;
+            topBoardNo = depth == 0 && score == topScore && random(1) < 0.3 ? i : topBoardNo;
         }
 
         if (score > beta) return topScore;
@@ -161,7 +159,10 @@ function maxFunAB(board, alpha, beta, depth) {
     }
 
     if (depth == 0) {
-        print(topScore);
+// console.log('AI: Evaluation complete, output the topScore')
+// console.log(topScore);
+// console.log('AI: Evaluation complete, output the new board')
+// console.log(boards[topBoardNo]);
         return boards[topBoardNo];
     }
     return topScore;

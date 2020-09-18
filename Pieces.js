@@ -54,12 +54,12 @@ class Piece {
     generateNewBoards(currentBoard) {
         let boards = []; // all boards created from moving this piece
         let moves = this.generateMoves(currentBoard); 
-console.log(`GENERATE BOARD`)
+// console.log(`GENERATE BOARD`)
         for(let i = 0; i < moves.length; i++) {
             boards[i] = currentBoard.clone();
             boards[i].move(this.matrixPosition, moves[i]);
         }
-console.log(boards)
+// console.log(boards)
         return boards;
     }
     /**
@@ -154,7 +154,8 @@ console.log(boards)
             if(
                 i != refPoint &&
                 !this.attackingAllies(x, y, board) &&
-                !this.moveThroughPieces(x, y, board)
+                !this.moveThroughPieces(x, y, board) &&
+                this.withinBounds(x, y)
             ) moves.push(createVector(x, y));
         }
         return moves;
@@ -174,7 +175,8 @@ console.log(boards)
             if(
                 i != refPoint &&
                 !this.attackingAllies(x, y, board) &&
-                !this.moveThroughPieces(x, y, board)
+                !this.moveThroughPieces(x, y, board) &&
+                this.withinBounds(x, y)
             ) moves.push(createVector(x, y));
         }
 
@@ -234,7 +236,7 @@ class Pawn extends Piece {
 
 
     generateMoves(board) {
-console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixPosition.y} `)
+// console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixPosition.y} `)
         let moves = [];
 
         // Attacking
@@ -262,9 +264,8 @@ console.log(`Generate moves for PAWN at ${this.matrixPosition.x}, ${this.matrixP
             ) {
                 moves.push(createVector(x,y));
         }
-        print("pawn", moves);
-console.log('Available PAWN moves')
-console.log(moves);        
+// console.log('Available PAWN moves')
+// console.log(moves);        
         return moves;
     }
 
@@ -285,8 +286,8 @@ console.log(moves);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
         this.firstTurn = false;
 
-console.log("QUERY-PAWN_MOVE: Check test board state");
-console.log(test);
+// console.log("QUERY-PAWN_MOVE: Check test board state");
+// console.log(test);
     }
 
     // IsEnPassant(x, y, board){
@@ -313,7 +314,7 @@ class King extends Piece {
     }
 
     generateMoves(board) {
-console.log('Generate moves for KING')
+// console.log('Generate moves for KING')
         let c_x = this.matrixPosition.x;
         let c_y = this.matrixPosition.y;
         let moves = [];
@@ -327,8 +328,8 @@ console.log('Generate moves for KING')
                 }
             }
         }
-console.log('Available King moves')
-console.log(moves);
+// console.log('Available King moves')
+// console.log(moves);
         return moves;
 
 
@@ -480,6 +481,11 @@ class Queen extends Piece {
         return basicCondition && vhMovement || diagMovement;
     }
     generateMoves(board) {
+console.log(`Generate Black Queen moves`);
+console.log([...this.lineSweep(0, board), 
+    ...this.lineSweep(1, board),
+    ...this.diagSweep(0, board), 
+    ...this.diagSweep(1, board)]);
         return [...this.lineSweep(0, board), 
                 ...this.lineSweep(1, board),
                 ...this.diagSweep(0, board), 

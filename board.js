@@ -128,9 +128,8 @@ class Board {
         for(let i = 0; i < this.whitePieces.length; i++) {
             if (!this.whitePieces[i].taken) {
                 let tempArr = this.whitePieces[i].generateNewBoards(this);
-                for (let j = 0; i < tempArr.length; j++ ) {
-                    boards.push(tempArr[j]);
-                }
+                boards.push(...tempArr);
+
             }
         }
         return boards;
@@ -159,9 +158,6 @@ class Board {
         for (let i = 0; i < this.whitePieces.length; i++) {
             if(!this.whitePieces[i].taken) {
                 this.score -= this.whitePieces[i].value;
-            }
-            else {
-                print(`${this.whitePieces[i]} is taken`);
             }
         }
         for (let i = 0; i < this.blackPieces.length; i++) {
@@ -199,16 +195,6 @@ class Board {
     isDead() {
         return whiteAI && whitesMove ? this.whitePieces[0].taken :
                blackAI && !whitesMove ? this.blackPieces[0].taken :
-               false;
-    }
-
-    /**
-     * @return {boolean} For every AI, if it is the black/white's move, 
-     *                   return whether that side has won
-     */
-    hasWon() {
-        return whiteAI && whitesMove ? this.blackPieces[0].taken :
-               blackAI && !whitesMove ? this.whitePieces[0].taken :
                false;
     }
 
