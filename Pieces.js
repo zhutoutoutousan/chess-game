@@ -155,7 +155,8 @@ class Piece {
                 i != refPoint &&
                 !this.attackingAllies(x, y, board) &&
                 !this.moveThroughPieces(x, y, board) &&
-                this.withinBounds(x, y)
+                this.withinBounds(x, y) &&
+                (x !== 0 || y !== 0)
             ) moves.push(createVector(x, y));
         }
         return moves;
@@ -176,7 +177,8 @@ class Piece {
                 i != refPoint &&
                 !this.attackingAllies(x, y, board) &&
                 !this.moveThroughPieces(x, y, board) &&
-                this.withinBounds(x, y)
+                this.withinBounds(x, y) &&
+                (x !== 0 || y !== 0)
             ) moves.push(createVector(x, y));
         }
 
@@ -194,8 +196,8 @@ class Pawn extends Piece {
     }
 
     canMove(x, y, board) {
-        const basicViolation = !this.withinBounds(x, y) &&
-                             this.attackingAllies(x, y, board);
+        const basicViolation = this.withinBounds(x, y) &&
+                             !this.attackingAllies(x, y, board);
 
         const canAttack = !board.isPieceAt(x, y) ? false : 
                             (abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y) &&
@@ -205,7 +207,7 @@ class Pawn extends Piece {
                                 )
                             ) ? true : false; 
 
-        const canMarch = canAttack ? false : 
+        const canMarch = board.isPieceAt(x, y) ? false : 
                          x != this.matrixPosition.x ? false :
                          (
                              (
@@ -231,7 +233,7 @@ class Pawn extends Piece {
 // console.log(canMarch);
 // console.log("QUERY-PAWN: verdict - Can move?")
 // console.log(!basicViolation && (canAttack || canMarch || canEnPassant));
-        return !basicViolation && (canAttack || canMarch || canEnPassant);
+        return basicViolation && (canAttack || canMarch || canEnPassant);
     }
 
 
@@ -385,8 +387,10 @@ class Rook extends Piece {
             this.withinBounds(x, y) &&
             !this.attackingAllies(x, y, board) &&
             (
+                (
                 x == this.matrixPosition.x ||
-                y == this.matrixPosition.y &&
+                y == this.matrixPosition.y
+                ) &&
                 !this.moveThroughPieces(x, y, board)
             )
         ) ? true : false;
@@ -478,7 +482,7 @@ class Queen extends Piece {
                            this.moveThroughPieces(x, y, board) ? false : true;
         const diagMovement = !(abs(x - this.matrixPosition.x) == abs(y - this.matrixPosition.y)) ? false :
                              this.moveThroughPieces(x, y, board) ? false : true;
-        return basicCondition && vhMovement || diagMovement;
+        return basicCondition && (vhMovement || diagMovement);
     }
     generateMoves(board) {
 console.log(`Generate Black Queen moves`);
