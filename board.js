@@ -177,7 +177,7 @@ class Board {
      * @param {number} y 
      */
     isPieceAt(x, y) {
-        return this.getPieceAt(x,y) ? true : false;
+        return this.getPieceAt(x, y) ? true : false;
     }
 
     /**

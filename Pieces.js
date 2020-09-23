@@ -223,7 +223,21 @@ class Pawn extends Piece {
                              !this.moveThroughPieces(x, y, board)
                          ) ? true : false;
 
-        const canEnPassant = false; // TODO
+        // const canEnPassant = false; // TODO
+
+        const canEnPassant_w =  this.matrixPosition.x === 3 ? (
+            
+        ) : false
+
+        const canEnPassant_b
+
+        const canEnPassant = this.white ? (
+            canEnPassant_w ? true : false   
+           ) : (
+            canEnPassant_b ? true : false
+           );
+
+
         this.firstTurn = canAttack || canMarch ? false : this.firstTurn;
 // console.log("QUERY-PAWN: This pawn can Attack?");
 // console.log(canAttack);
