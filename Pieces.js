@@ -193,9 +193,22 @@ class Pawn extends Piece {
         this.firstTurn = true;
         this.value = 1;
         this.pic = isWhite ? images[5] : images[11];
+        this.moveCount = 0;
     }
 
     canMove(x, y, board) {
+        const EnPassantTarget = this.isWhite ? (
+            this.matrixPosition.x === 3 ? (
+                (
+                    ((x === this.matrixPosition.x + 1) &&
+                    y === this.matrixPosition.y - 1) ? 
+                        board.isPieceAt()
+            ) : false
+        ) : (
+
+        ) : false
+
+
         const basicViolation = this.withinBounds(x, y) &&
                              !this.attackingAllies(x, y, board);
 
@@ -226,8 +239,24 @@ class Pawn extends Piece {
         // const canEnPassant = false; // TODO
 
         const canEnPassant_w =  this.matrixPosition.x === 3 ? (
-            
-        ) : false
+            ((x === this.matrixPosition.x + 1 || x === this.matrixPosition.x - 1) &&
+            y === this.matrixPosition.y - 1) ? (
+                (
+                 board.isPieceAt(x - 1, y) && 
+                 board.getPieceAt(x - 1, y).letter === 'p' &&
+                 board.getPieceAt(x - 1, y).isWhite !== this.isWhite
+                 ) ? 
+                    (
+                        board.getPieceAt(x - 1).moveCount === 1
+                    ) : (
+                        board.isPieceAt(x + 1, y) && 
+                        board.getPieceAt(x + 1, y).letter === 'p' &&
+                        board.getPieceAt(x + 1, y).isWhite !== this.isWhite   
+                        ) ? (
+
+                            )  : false
+            ) : false
+        ) : false;
 
         const canEnPassant_b
 
@@ -300,6 +329,7 @@ class Pawn extends Piece {
         if(attacking) attacking.taken = true;
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
+        if(this.moveCount < 2)this.moveCount++;
         this.firstTurn = false;
 
 // console.log("QUERY-PAWN_MOVE: Check test board state");
