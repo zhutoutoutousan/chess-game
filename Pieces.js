@@ -191,22 +191,22 @@ class Pawn extends Piece {
         super(x, y, isWhite);
         this.letter = "p";
         this.firstTurn = true;
+        this.canBeEnPassant = false;
         this.value = 1;
         this.pic = isWhite ? images[5] : images[11];
-        this.moveCount = 0;
     }
 
     canMove(x, y, board) {
-        const EnPassantTarget = this.isWhite ? (
-            this.matrixPosition.x === 3 ? (
-                (
-                    ((x === this.matrixPosition.x + 1) &&
-                    y === this.matrixPosition.y - 1) ? 
-                        board.isPieceAt()
-            ) : false
-        ) : (
+        // const EnPassantTarget = this.isWhite ? (
+        //     this.matrixPosition.x === 3 ? (
+        //         (
+        //             ((x === this.matrixPosition.x + 1) &&
+        //             y === this.matrixPosition.y - 1) ? 
+        //                 board.isPieceAt()
+        //     ) : false
+        // ) : (
 
-        ) : false
+        // ) : false
 
 
         const basicViolation = this.withinBounds(x, y) &&
@@ -236,35 +236,35 @@ class Pawn extends Piece {
                              !this.moveThroughPieces(x, y, board)
                          ) ? true : false;
 
-        // const canEnPassant = false; // TODO
+        const canEnPassant = false; // TODO
 
-        const canEnPassant_w =  this.matrixPosition.x === 3 ? (
-            ((x === this.matrixPosition.x + 1 || x === this.matrixPosition.x - 1) &&
-            y === this.matrixPosition.y - 1) ? (
-                (
-                 board.isPieceAt(x - 1, y) && 
-                 board.getPieceAt(x - 1, y).letter === 'p' &&
-                 board.getPieceAt(x - 1, y).isWhite !== this.isWhite
-                 ) ? 
-                    (
-                        board.getPieceAt(x - 1).moveCount === 1
-                    ) : (
-                        board.isPieceAt(x + 1, y) && 
-                        board.getPieceAt(x + 1, y).letter === 'p' &&
-                        board.getPieceAt(x + 1, y).isWhite !== this.isWhite   
-                        ) ? (
+        // const canEnPassant_w =  this.matrixPosition.x === 3 ? (
+        //     ((x === this.matrixPosition.x + 1 || x === this.matrixPosition.x - 1) &&
+        //     y === this.matrixPosition.y - 1) ? (
+        //         (
+        //          board.isPieceAt(x - 1, y) && 
+        //          board.getPieceAt(x - 1, y).letter === 'p' &&
+        //          board.getPieceAt(x - 1, y).isWhite !== this.isWhite
+        //          ) ? 
+        //             (
+        //                 board.getPieceAt(x - 1).moveCount === 1
+        //             ) : (
+        //                 board.isPieceAt(x + 1, y) && 
+        //                 board.getPieceAt(x + 1, y).letter === 'p' &&
+        //                 board.getPieceAt(x + 1, y).isWhite !== this.isWhite   
+        //                 ) ? (
 
-                            )  : false
-            ) : false
-        ) : false;
+        //                     )  : false
+        //     ) : false
+        // ) : false;
 
-        const canEnPassant_b
+        // const canEnPassant_b
 
-        const canEnPassant = this.white ? (
-            canEnPassant_w ? true : false   
-           ) : (
-            canEnPassant_b ? true : false
-           );
+        // const canEnPassant = this.white ? (
+        //     canEnPassant_w ? true : false   
+        //    ) : (
+        //     canEnPassant_b ? true : false
+        //    );
 
 
         this.firstTurn = canAttack || canMarch ? false : this.firstTurn;
@@ -323,18 +323,28 @@ class Pawn extends Piece {
 
     move(x, y, board) {
 
+        if( Math.abs(y - this.matrixPosition.y) === 2) {
+            this.canBeEnPassant = true;
+        } else {
+            this.canBeEnPassant = false;
+        }
+
         let attacking = board.getPieceAt(x, y);
 // console.log("STATE-PAWN_MOVE: This pawn attacking?");
 // console.log(attacking);
         if(attacking) attacking.taken = true;
         this.matrixPosition = createVector(x, y);
         this.pixelPosition = createVector(x * tileSize + tileSize / 2, y * tileSize + tileSize / 2);
-        if(this.moveCount < 2)this.moveCount++;
+
         this.firstTurn = false;
 
 // console.log("QUERY-PAWN_MOVE: Check test board state");
 // console.log(test);
     }
+
+    // promote(x, y, board) {
+
+    // }
 
     // IsEnPassant(x, y, board){
     // 
@@ -529,11 +539,11 @@ class Queen extends Piece {
         return basicCondition && (vhMovement || diagMovement);
     }
     generateMoves(board) {
-console.log(`Generate Black Queen moves`);
-console.log([...this.lineSweep(0, board), 
-    ...this.lineSweep(1, board),
-    ...this.diagSweep(0, board), 
-    ...this.diagSweep(1, board)]);
+// console.log(`Generate Black Queen moves`);
+// console.log([...this.lineSweep(0, board), 
+    // ...this.lineSweep(1, board),
+    // ...this.diagSweep(0, board), 
+    // ...this.diagSweep(1, board)]);
         return [...this.lineSweep(0, board), 
                 ...this.lineSweep(1, board),
                 ...this.diagSweep(0, board), 

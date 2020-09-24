@@ -115,7 +115,7 @@ function minFunAB(board, alpha, beta, depth) {
  */
 function maxFunAB(board, alpha, beta, depth) {
 // console.log(`----- `)
-console.log(`AI: Evaluating depth: ${depth}`);
+// console.log(`AI: Evaluating depth: ${depth}`);
 // console.log(`AI: Current board status`);
 // console.log(board);
 // console.log(`AI: Current alpha value: ${alpha}`);
