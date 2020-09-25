@@ -391,6 +391,14 @@ class King extends Piece {
 
     }
 
+    castleQueenSide() {
+
+    }
+
+    castleKingSide() {
+        
+    }
+
     clone() {
         let clone = new King(this.matrixPosition.x, this.matrixPosition.y, this.white);
         clone.taken = this.taken;

@@ -50,8 +50,6 @@ function draw() {
     let currentBoard;
     background(100);
     showGrid();
-// After moving, the test is set to zero, where could the object be changed to zero?
-if(!test) console.log("ERRER: For a while the test object doesn't exist")
     currentBoard = test ? test : currentBoard ? currentBoard : 1; 
     currentBoard.show();
     runAIs();
@@ -103,6 +101,15 @@ console.log(test);
 }
 
 function runAIs() {
+    const getEnPassantPieces = (piece) => {
+        let blackPieces = [];
+        let whitePieces = [];
+        
+    }
+    const restoreEnPassant = (piece) => {
+
+    }
+
     if (
         !test.isDead() &&
         blackAI && !whitesMove &&
