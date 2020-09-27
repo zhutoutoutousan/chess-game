@@ -31,10 +31,10 @@ console.log("Setting up")
 
     // load all chess pieces images
     for(let i = 1; i< 10; i++){
-        images.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_0${i}.png`));
+        images.push(loadImage(`./../../public/assets/assets/2000px-Chess_Pieces_Sprite_0${i}.png`));
     }
     for(let i = 10; i< 13; i++){
-        images.push(loadImage(`assets/2000px-Chess_Pieces_Sprite_${i}.png`));
+        images.push(loadImage(`./../../public/assets/assets/2000px-Chess_Pieces_Sprite_${i}.png`));
     }
 
     /** @global */

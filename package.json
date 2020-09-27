@@ -2,7 +2,7 @@
   "name": "chess-game",
   "version": "1.0.0",
   "description": "Just a chess game for learning JavaScript",
-  "main": "sketch.js",
+  "main": "index.js",
   "scripts": {
     "test": "npm test"
   },
@@ -20,5 +20,9 @@
     "jest": "^26.4.2",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
   }
 }
