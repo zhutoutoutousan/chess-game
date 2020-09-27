@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/zhutoutoutousan/chess-game#readme",
   "devDependencies": {
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
   }
 }
