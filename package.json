@@ -4,7 +4,8 @@
   "description": "Just a chess game for learning JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "npm test",
+    "dev" : "nodemon app"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/zhutoutoutousan/chess-game#readme",
   "devDependencies": {
     "jest": "^26.4.2",
+    "nodemon": "^2.0.4",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
   },
