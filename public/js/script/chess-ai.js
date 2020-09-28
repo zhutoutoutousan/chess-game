@@ -136,7 +136,6 @@ function maxFunAB(board, alpha, beta, depth) {
                                200 : blackAI && !whitesMove ?
                               -200 : null; 
 
-
     // Generate all possibilities for black to move given the present board.  
 
     let boards = board.generateNewBoardsBlacksTurn();
