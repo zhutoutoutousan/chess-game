@@ -23,6 +23,9 @@ class Piece {
         this.pic = pic;
         this.movingThisPiece = false;
         this.value = 0;
+
+        this.playerInvoked = false;
+        this.AIgenerated = false;
     }
 
     /**

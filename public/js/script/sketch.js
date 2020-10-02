@@ -31,10 +31,10 @@ console.log("Setting up")
 
     // load all chess pieces images
     for(let i = 1; i< 10; i++){
-        images.push(loadImage(`./../../public/assets/2000px-Chess_Pieces_Sprite_0${i}.png`));
+        images.push(loadImage(`./../public/img/2000px-Chess_Pieces_Sprite_0${i}.png`));
     }
     for(let i = 10; i< 13; i++){
-        images.push(loadImage(`./../../public/assets/2000px-Chess_Pieces_Sprite_${i}.png`));
+        images.push(loadImage(`./../public/img/2000px-Chess_Pieces_Sprite_${i}.png`));
     }
 
     /** @global */
@@ -101,14 +101,10 @@ console.log(test);
 }
 
 function runAIs() {
-    const getEnPassantPieces = (piece) => {
-        let blackPieces = [];
-        let whitePieces = [];
-        
-    }
-    const restoreEnPassant = (piece) => {
-
-    }
+    // const getChessPositionDifference = (board) => {
+    //     const enPassantPieces = [];
+    //     const moves 
+    // }
 
     if (
         !test.isDead() &&
