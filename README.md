@@ -43,6 +43,8 @@ A simple chess game with basic AI
 - [x] Chessboard
 - [ ] Game mechanics
   - [ ] When you win, the game is stuck 
+  - [ ] Create save game
+  - [ ] Create records of movements
 - [ ] Chess Pieces
   - [x] Initial design
   - [x] ? The black bishop sometimes disappear
@@ -62,6 +64,7 @@ A simple chess game with basic AI
     - [ ] Use pawn class property ```canBeEnPassent```
       - [ ] The property switch back to ```false``` before the next move
         - [ ] It happened in the ```RunAI()``` function
+          - [ ] Thinking over this question surpasses the current mental capacity, write it down
         - [ ] WORKAROUND: maybe you can add store Enpassant and store it back
     - [ ] <span style="color: red">Chrome devTool technique</span>(optional)
       - [ ] Gather as much information as you can
@@ -86,3 +89,5 @@ A simple chess game with basic AI
     - [ ] [Bulletproof node.js project architecture](https://softwareontheroad.com/ideal-nodejs-project-structure/)
   - [ ] Class
     - [ ] [Frontend Master course](https://frontendmasters.com/courses/api-design-nodejs-v3/)
+- Project architecture
+  - [ ] Add 'sass-loader'
