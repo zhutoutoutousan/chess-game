@@ -24,19 +24,22 @@ A simple chess game with basic AI
 ```
 
 # Packages and dependencies
-## UI framework
+## Front-end
 - p5.js
-## Back-end DX
-- Framework
-  - express
-- Template Engine
-  - ejs
-- Resource management
-  - serve-favicon
-  - css-loader
-- Hot reload
-  - nodemon
-
+## Back-end
+- DX
+  - Framework
+    - express
+  - Template Engine
+    - ejs
+  - Resource management
+    - serve-favicon
+    - css-loader
+  - Hot reload
+    - nodemon
+- ENV
+  - Heroku
+  - package.json ---> devDependencies
 ## Testing and automation
 - jest
 # Progress
@@ -77,6 +80,7 @@ A simple chess game with basic AI
 - [ ] Decoration
   - [ ] Start the game
   - [ ] Restart the game
+  - [ ] Initialize the CSS layout
 - [ ] Multiplayer
   - [ ] Choose mode
   - [ ] Networking
@@ -91,3 +95,4 @@ A simple chess game with basic AI
     - [ ] [Frontend Master course](https://frontendmasters.com/courses/api-design-nodejs-v3/)
 - Project architecture
   - [ ] Add 'sass-loader'
+  - [ ] Add 'webpack' for better performance
