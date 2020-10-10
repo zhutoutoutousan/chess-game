@@ -76,7 +76,9 @@ A simple chess game with basic AI
 - [ ] AI
   - [x] Algorithms
   - [ ] Enemy loves moving pawn
-    - [ ] Why
+    - [ ] Check the canMove area
+    - [ ] Check if AI function is working the right way
+      - [x] Found an error in `canMove` in `Piece` class
 - [ ] Decoration
   - [ ] Start the game
   - [ ] Restart the game

@@ -98,7 +98,7 @@ class Piece {
      * @param {*} board 
      */
     canMove(x, y, board) {
-        if(!this,withinBounds(x, y)){
+        if(!this.withinBounds(x, y)){
             return false;
         }
         return true;
