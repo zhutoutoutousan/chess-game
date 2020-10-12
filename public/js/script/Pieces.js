@@ -359,7 +359,7 @@ class King extends Piece {
         super(x, y, isWhite);
         this.letter = 'K';
         this.pic = isWhite ? images[0] : images[6];
-        this.value = 99;
+        this.value = 999;
     }
 
     canMove(x, y, board) {
@@ -414,7 +414,7 @@ class Bishop extends Piece {
         super(x, y, isWhite);
         this.letter = 'B';
         this.pic = isWhite ? images[2] : images[8];
-        this.value = 3;
+        this.value = 30;
     }
 
     canMove(x, y, board) {
@@ -445,7 +445,7 @@ class Rook extends Piece {
         else{
             this.pic = images[10];
         }
-        this.value = 5;
+        this.value = 50;
     }
     canMove(x, y, board) {
         return (
@@ -485,7 +485,7 @@ class Knight extends Piece {
         super(x, y, isWhite);
         this.letter = 'Kn';
         this.pic = isWhite ? images[3] : images[9];
-        this.value = 3;
+        this.value = 30;
     }
 
     canMove(x, y, board) {
@@ -537,7 +537,7 @@ class Queen extends Piece {
         super(x, y, isWhite);
         this.letter = 'Q';
         this.pic = isWhite ? images[1] : images[7];
-        this.value = 9;
+        this.value = 90;
     }
 
     canMove(x, y, board) {
