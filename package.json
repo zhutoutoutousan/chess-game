@@ -24,7 +24,7 @@
     "style-loader": "^1.2.1"
   },
   "dependencies": {
-    "ejs": "^3.1.5",
+    "ejs": "^3.1.7",
     "express": "^4.17.1",
     "serve-favicon": "^2.5.0"
   }
